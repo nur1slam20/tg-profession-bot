@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  tgId      String   @unique
+  firstName String
+  lastName  String
+  phone     String
+  createdAt DateTime @default(now())
+
+  sessions  TestSession[]
+}
+
+model Profession {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  title       String
+  description String
+}
+
+model Question {
+  id     Int     @id @default(autoincrement())
+  text   String
+  order  Int     @unique
+  answers Answer[]
+  testAnswers TestAnswer[]
+}
+
+model Answer {
+  id         Int     @id @default(autoincrement())
+  text       String
+  weightsJson Json
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+  testAnswers TestAnswer[]
+}
+
+model TestSession {
+  id               Int           @id @default(autoincrement())
+  user             User          @relation(fields: [userId], references: [id])
+  userId           Int
+  startedAt        DateTime      @default(now())
+  finishedAt       DateTime?
+  resultProfession String?
+  answers          TestAnswer[]
+}
+
+model TestAnswer {
+  id         Int         @id @default(autoincrement())
+  session    TestSession @relation(fields: [sessionId], references: [id])
+  sessionId  Int
+  question   Question    @relation(fields: [questionId], references: [id])
+  questionId Int
+  answer     Answer      @relation(fields: [answerId], references: [id])
+  answerId   Int
+}
