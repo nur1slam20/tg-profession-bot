@@ -30,7 +30,7 @@ bot.on("message:text", async (ctx) => {
     state.lastName = ctx.message.text?.trim() || "";
     state.step = "askPhone";
     userState.set(tgId, state);
-    const kb = new Keyboard().requestContact("Поделиться контактом").oneTime().resize();
+    const kb = new Keyboard().requestContact("Поделиться контактом").oneTime().resized();
     return ctx.reply("Укажи номер телефона (можешь поделиться контактом кнопкой):", { reply_markup: kb });
   }
 
