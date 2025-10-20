@@ -2,8 +2,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// Для продакшна с PostgreSQL раскомментируйте:
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// Для быстрого тестирования с SQLite:
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -36,7 +43,7 @@ model Question {
 model Answer {
   id         Int     @id @default(autoincrement())
   text       String
-  weightsJson Json
+  weightsJson String // SQLite не поддерживает Json, используем String
   question   Question @relation(fields: [questionId], references: [id])
   questionId Int
   testAnswers TestAnswer[]

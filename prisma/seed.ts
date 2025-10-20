@@ -56,7 +56,7 @@ async function main() {
     const q = qAndA[i];
     const createdQ = await prisma.question.create({ data: { text: q.text, order: i + 1 } });
     for (const a of q.answers) {
-      await prisma.answer.create({ data: { text: a.text, questionId: createdQ.id, weightsJson: a.weights as any } });
+      await prisma.answer.create({ data: { text: a.text, questionId: createdQ.id, weightsJson: JSON.stringify(a.weights) } });
     }
   }
 }
