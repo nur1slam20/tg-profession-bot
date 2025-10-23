@@ -2,17 +2,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Для продакшна с PostgreSQL раскомментируйте:
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
-// Для быстрого тестирования с SQLite:
+// Для продакшна с PostgreSQL:
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// Для быстрого тестирования с SQLite раскомментируйте:
+// datasource db {
+//   provider = "sqlite"
+//   url      = env("DATABASE_URL")
+// }
 
 model User {
   id        Int      @id @default(autoincrement())

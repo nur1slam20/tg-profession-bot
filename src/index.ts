@@ -115,7 +115,7 @@ bot.on("callback_query:data", async (ctx) => {
 
     await prisma.testAnswer.create({ data: { sessionId: state.sessionId, questionId: answer.questionId, answerId } });
 
-    const weights = JSON.parse(answer.weightsJson as string) as Record<string, number>;
+    const weights = answer.weightsJson as Record<string, number>;
     state.scores = state.scores || {};
     for (const prof of Object.keys(weights)) {
       const w = weights[prof] || 0;

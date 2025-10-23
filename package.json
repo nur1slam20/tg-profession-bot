@@ -11,7 +11,8 @@
     "prisma:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "setup:sqlite": "echo 'DATABASE_URL=file:./dev.db' > .env && echo 'BOT_TOKEN=your_bot_token_here' >> .env && echo 'PORT=3000' >> .env",
-    "dev:sqlite": "npm run setup:sqlite && npx prisma generate && npx prisma migrate dev --name init && npm run db:seed && npm run dev"
+    "dev:sqlite": "npm run setup:sqlite && npx prisma generate && npx prisma migrate dev --name init && npm run db:seed && npm run dev",
+    "postinstall": "npx prisma generate && npx prisma migrate deploy && npm run db:seed"
   },
   "dependencies": {
     "@prisma/client": "^5.18.0",
@@ -25,5 +26,8 @@
     "prisma": "^5.18.0",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
